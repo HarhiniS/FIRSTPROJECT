@@ -1,0 +1,213 @@
+ <html>
+ <head><title>AGILE</title>
+ <style>
+ body
+ {
+ background-size:cover
+ }</style>
+ </head>
+ <body background="https://i.pinimg.com/originals/92/90/72/929072dd52c6dd4d23d8f8c7ad2cfc4c.jpg" >
+	
+ <form>
+ <fieldset>
+ <center><h1><legend>Design Document 1</legend></h1></center>
+ 
+ <table align='center'>
+ <h4>
+ <tr>
+ <td> 
+ FIRST NAME:<td><input type='text' id='fname' value='' required><br><br></tr>
+ 
+ <tr><td>LAST NAME:<td><input type='text' id='lname' value=''><br><br></tr>
+ 
+ <tr><td>EmailID:<td><input type='email' id='email' value=''><br><br></tr>
+ 
+ <tr><td>PASSWORD:<td><input type='password' id='pwd' value=''><br><br></tr>
+ 
+ <tr><td>GENDER:<br>
+    <td><input type='radio' name='gender' value='male'>MALE
+   &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp <input type='radio' name='gender' value='female'> FEMALE<BR><BR><br></tr>
+ 
+ <tr><td>PERMANENT ADDRESS:<BR><BR></tr>
+ 
+ <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp ADDRESS:<td><input type='text' id='street' value='' onkeypress='area1()' > <br><br></tr>
+   
+ <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbspAREA:<td><input type='text' id='area' value='' disabled onkeypress='pin1()' > <br><br></tr>
+ 
+ <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbspPINCODE:<td><input type='number' id='pin' value='' disabled ><br><br></tr>
+ 
+ <tr><td><input type='checkbox' id='same' name='same' value='same address' onclick='paddress()'><h4>Same as permanent address</h4><br><br></tr>
+ 
+ <tr><td>COMMUNICATION ADDRESS:<br><br></tr> 
+
+ <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbspADDRESS:<td><input type='text' id='street2' value='' onkeypress='area3()'> <br><br></tr> 
+   
+ <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbspAREA:<td><input type='text' id='area2' value=''  disabled onkeypress='pin3()' > <br><br></tr> 
+ 
+ <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbspPINCODE:<td><input type='number' id='pin2' value='' disabled><br><br> </tr>
+ 
+ <tr><td>PHOTO: <td><input type="file" name="fileToUpload" id="fileToUpload" value='photo'><br><br></tr>
+ 
+ <tr><td>PHONE NUMBER: <td><input type='text' id='phone number' value='' title='Enter your 10 digit mobile number'  maxlength='10'> &nbsp; &nbsp; 
+<tr><td><input type='button' id='gen otp' value='Generate OTP' onclick='call()'> <br><br><br><br>
+<tr><td>OTP:<td> <input type='text' id='otp' value='' disabled onkeypress='verotp()'><br><br><br><br>
+<tr><td><input type='button' id='verify1' value='Verify' onclick='verfication()' disabled>
+
+	 
+ <tr><td><input type='checkbox' id='condition' name='con' value='box' onclick='click1()'><h4>I agree upon terms and conditions<h4><br><br>
+ 
+  &nbsp &nbsp &nbsp &nbsp &nbsp <tr><td><input type='button' id='click' value='CLICK' disabled>
+ </h4>
+ <script>
+ 
+ function area1()
+ {
+ var a=document.getElementById('street').value;
+ if(a=='NULL')
+ {
+ document.getElementById('area').disabled=true;
+ }
+ else
+ {
+ document.getElementById('area').disabled=false;
+ }
+ }
+ 
+ function pin1()
+ {
+ document.getElementById('pin').disabled=false;
+ }
+ 
+ function area3()
+ {
+ var b=document.getElementById('street2').value;
+ if(b=='NULL')
+ {
+ document.getElementById('area2').disabled=true;
+ }
+ else
+ {
+ document.getElementById('area2').disabled=false;
+ }
+ }
+ 
+ function pin3()
+ {
+ document.getElementById('pin2').disabled=false;
+ }
+ 
+ function click1()
+ {
+ var d=document.getElementsByName('con');
+ if(d[0].checked)
+ {
+ document.getElementById('click').disabled=false;
+ }
+ else
+ {
+ document.getElementById('click').disabled=true;
+ }
+ }
+ 
+ function paddress()
+ {
+ var f=document.getElementsByName('same');
+
+ if(f[0].checked)
+ {
+ document.getElementById('street2').value=document.getElementById('street').value;
+ document.getElementById('street2').disabled=true;
+ 
+ document.getElementById('area2').value=document.getElementById('area').value;
+ document.getElementById('area2').disabled=true;
+ 
+ document.getElementById('pin2').value=document.getElementById('pin').value;
+ document.getElementById('pin2').disabled=true;
+ }
+ else
+ {
+ document.getElementById('street2').value=''
+ document.getElementById('street2').disabled=false;
+
+ document.getElementById('area2').value=''
+ document.getElementById('area2').disabled=true;
+ 
+ document.getElementById('pin2').value=''
+ document.getElementById('pin2').disabled=true;
+ }
+ }
+ 
+ var otpno;
+count=2;
+var times=3;
+function call()
+{
+var s=document.getElementById('phone number').value;
+if(s.length==10)
+{
+
+	if(isNaN(s))
+		{
+			alert('Invalid Phone number')
+		}
+	else
+		{
+			count--;
+			otpno=Math.floor(Math.random()*10000);
+			alert("An OTP will be sent to "+s[0]+s[1]+"******"+s[8]+s[9])
+			alert("Your OTP is "+ otpno)
+			document.getElementById('otp').disabled=false;
+		}
+}
+
+
+else
+{
+alert('Phone number must be 10 digit')
+document.getElementById('otp').disabled=true;
+}
+}
+
+function verotp()
+{
+	document.getElementById('verify1').disabled=false;
+}
+
+
+function verfication()
+{
+var ver=document.getElementById('otp').value;
+if(ver==otpno)
+{
+	alert('Registered Successfully')
+}
+else
+{
+	times--;
+	alert('Invalid OTP')
+}
+if(times==0 && count==0)
+{
+	alert('No more chances. Please contact nearby branch')
+	document.getElementById('gen otp').disabled=true;
+	document.getElementById('otp').disabled=true;
+	document.getElementById('verify1').disabled=true;
+}
+else 
+{
+if(times==0)
+{
+	times=3;
+	alert('No more chances. You can generate one more time')
+	document.getElementById('otp').disabled=true;
+	document.getElementById('verify1').disabled=true;
+}
+}
+}
+ 
+ 
+ </script>
+ </fieldset>
+ </form>
+ </body>
+ </html>
